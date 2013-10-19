@@ -1,0 +1,9 @@
+mysql.driver=com.mysql.jdbc.Driver
+mysql.url=jdbc:mysql://ec2-50-19-213-178.compute-1.amazonaws.com/pranshi
+mysql.user=pranshi
+mysql.password=dhingra
+
+#mysql.driver=com.mysql.jdbc.Driver
+#mysql.url=jdbc:mysql://localhost:3306/systemlogic
+#mysql.user=root
+#mysql.password=rain

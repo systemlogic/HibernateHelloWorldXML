@@ -1,0 +1,69 @@
+<html>
+<head>
+<link href="/menu_assets/styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<%@ include file="Header.jsp"%>
+	<%@ include file="Menu.jsp"%>
+	<table>
+		<tr>
+			<td valign="top" height="10px" width="222"><%@ include
+					file="hibernateFirstAnnotationMenu.jsp"%>
+			</td>
+			<td></td>
+			<td align="left" bordercolor="c41200">
+				<h2>Hibernate</h2>
+				<p>The good thing about Hibernate is one don't need to write any database query to any specific database.
+				Configure the class file and play with java objects to save and retrieved anything to the database. </p>
+				<p>Hibernate implementation coming in two flavour one is using XML and other is using Annotation.
+				Here we will see how things can be done using Annotation.</p>
+				
+				<pre class="pres">
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(uniqueConstraints = {
+		@UniqueConstraint(columnNames = "ID") }, name="HelloTable")
+public class BeanRepresentingTable implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name="ID" ,unique=true ,nullable=false)
+	Integer idKey;
+
+	@Column(name="DATE",nullable=false)
+	Date date;
+	public Integer getIdKey() {
+		return idKey;
+	}
+	public void setIdKey(Integer idKey) {
+		this.idKey = idKey;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+}
+</pre>
+
+<p>Above class maps java class to Table in Database.  </p>
+
+					<a
+						href='https://github.com/systemlogic/HibernateHelloWorldAnnotation/archive/master.zip'><span>Download
+							this Example</span></a>
+				</p>
+			</td>
+			<%@ include file="rightPane.jsp"%>
+		</tr>
+	</table>
+	<%@ include file="FooterLink.jsp"%>
+	<%@ include file="Footer.jsp"%>
+</body>
+</html>

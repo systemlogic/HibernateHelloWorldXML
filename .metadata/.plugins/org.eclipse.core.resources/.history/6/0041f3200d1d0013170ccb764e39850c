@@ -1,0 +1,69 @@
+package com.common.util;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.PrintWriter;
+import java.net.URLDecoder;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.w3c.dom.Node;
+
+import org.springframework.web.filter.HiddenHttpMethodFilter;
+
+public class CustomizedHiddenHttpMethodFilter extends HiddenHttpMethodFilter
+{
+  @Override
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    throws ServletException, IOException
+  {
+    // Customize Request
+    request = new CustomizedRequestWrapper((HttpServletRequest) request);
+
+    String qs = request.getQueryString();
+    qs = ( qs == null )? "":("?"+qs);
+    System.out.println("Received " + request.getMethod() + " " + request.getRequestURL().toString() + URLDecoder.decode(qs));
+
+    try
+    {
+      // Validate Session
+      if ( !request.getRequestURI().equals("/api/login") )
+        Common.validateSession(request);
+    }
+    catch (Exception e)
+    {
+      String message = e.getMessage();
+      if ( !isXml(message) )
+        throw new ServletException(message);
+
+      response.setStatus(HttpServletResponse.SC_OK);
+      response.setContentType("text/html");
+      PrintWriter out = response.getWriter();
+      out.println(message);
+      return;
+    }
+
+    super.doFilterInternal(request, response, filterChain);
+  }
+
+  private boolean isXml(String message)
+  {
+    boolean isXml = false;
+
+    try
+    {
+      Node nodeInput = DOMWalker.parseXML(new StringReader(message)).getDocumentElement();
+      if ( nodeInput == null )
+        throw new Exception("Could not get document node");
+      isXml = true;
+    }
+    catch (Exception e)
+    {
+      isXml = false;
+    }
+
+    return isXml;
+  }
+}

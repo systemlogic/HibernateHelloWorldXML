@@ -1,0 +1,29 @@
+<html>
+<head>
+<link href="/menu_assets/styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<%@ include file="Header.jsp" %>
+<%@ include file="Menu.jsp" %>
+<table>
+ <tr >
+        <td valign="top" height="10px" width="222">
+            <%@ include file="AdobeFlexMenu.jsp" %>
+        </td>
+        <td></td>
+        <td align="left" bordercolor="c41200">
+        	<h2>Adobe flex</h2>
+        	<p>Although Adobe has decided to stop further development in Flex/mobile still we will look some simple example to 
+        	to understand.</p>
+        	<p>Before that you might be aware of how to setup flex builder on linux. <a href='http://code.google.com/p/fb4linux/downloads/list'><span>Download</span></a> 
+        	and <a href='http://askubuntu.com/questions/104723/how-to-install-debug-flash-player-11-1-on-64-bit'><span>Configure.</span></a>Configurations
+        	are quite easy on windows environment.</p>
+        	<p> Let us try Hello world Example in Alert box and console.</p>
+		</td>
+        <%@ include file="rightPane.jsp" %>
+    </tr>
+</table>
+<%@ include file="FooterLink.jsp" %>
+<%@ include file="Footer.jsp" %>
+</body>
+</html>
